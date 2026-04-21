@@ -231,7 +231,7 @@ class Client:
         playlist = self.sp.playlist(playlist_id)
         if not playlist:
             raise ValueError("No playlist found.")
-        return utils.parse_tracks(playlist['tracks']['items'])
+        return utils.parse_tracks((playlist.get('items') or playlist.get('tracks') or {}).get('items', []))
     
     @utils.ensure_username
     def add_tracks_to_playlist(self, playlist_id: str, track_ids: List[str], position: Optional[int] = None):
